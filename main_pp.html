@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Predict Heart Disease</title>
+
+    <link href="css/styles-merged.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="fonts/icomoon/style.css" rel="stylesheet">
+    <link href="css/predictor.css" rel="stylesheet">
+    <link href="css/back-to-top.css" rel="stylesheet">
+    <link href="css/styless.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon-32x32.png">
+
+
+
+    <!--[if lt IE 9]>
+    <script src="js/vendor/html5shiv.min.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="js/back-to-top.js"></script>
+
+    <section class="probootstrap-section" data-section="predict" id="predict">
+        <div class="container">
+            <div class="row text-center mb100">
+                <div class="col-md-8 col-md-offset-2 probootstrap-section-heading">
+                    <h2 class="mb30 text-black probootstrap-heading">Predict your Chance of Having a Heart Disease</h2><br /><br />
+                   <p>Enter the appropriate values of symptoms you face. Get the chances of you contracting heart disease based on those values.</p>
+                </div> 
+            </div>
+            <br />
+            <!-- END row -->
+            <!-- Main Div -->
+            <div id="parent">
+                <div id="wrapper">
+                    <div style="text-align: center;">
+                        <h1 class="text-black probootstrap-heading">Heart Disease Predictor</h1>
+                    </div>
+                    <div class="child1">
+                        <table class="naked_table">
+                            <tr>
+                                <td>
+                                    <label class="before_slider" for="nSex1" style="opacity: 0;">
+                                    Sex (0=female,1=male)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nSex1" max="1" min="0" name="amountRange" oninput="this.form.amountInput.value=this.value" step="1" type="range" value="0" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nSex2" max="1" min="0" name="amountInput" oninput="this.form.amountRange.value=this.value" step="1" type="number" value="0" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nRestbp1" style="opacity: 0;">
+                                Resting Blood Pressure (94 - 200 mmHg)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nRestbp1" max="200" min="94" name="amountRange" oninput="this.form.amountInput.value=this.value" step="all" type="range" value="94" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nRestbp2" max="200" min="94" name="amountInput" oninput="this.form.amountRange.value=this.value" step="all" type="number" value="94" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nThalach1" style="opacity: 0;">
+                                Thalium Stress Test Maximum Heart Rate (71 - 202)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nThalach1" max="202" min="71" name="amountRange" oninput="this.form.amountInput.value=this.value" step="all" type="range" value="71" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nThalach2" max="202" min="71" name="amountInput" oninput="this.form.amountRange.value=this.value" step="all" type="number" value="71" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nCa1" style="opacity: 0;">
+                                Number of Major Vessels Colored by Fluoroscopy (0 - 3)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nCa1" max="3" min="0" name="amountRange" oninput="this.form.amountInput.value=this.value" step="all" type="range" value="0" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nCa2" max="3" min="0" name="amountInput" oninput="this.form.amountRange.value=this.value" step="all" type="number" value="0" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nCp1" style="opacity: 0;">
+                                Chest Pain Type (1=typical angina, 2=atypical angina, 3=non-angina, 4=asymptomatic
+                                angina)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nCp1" max="4" min="1" name="amountRange" oninput="this.form.amountInput.value=this.value" step="1" type="range" value="1" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nCp2" max="4" min="1" name="amountInput" oninput="this.form.amountRange.value=this.value" step="1" type="number" value="1" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nSlope1" style="opacity: 0;">
+                                Peak Exercise ST Segment (0=flat or downsloping, 1=upsloping)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nSlope1" max="1" min="0" name="amountRange" oninput="this.form.amountInput.value=this.value" step="1" type="range" value="0" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nSlope2" max="1" min="0" name="amountInput" oninput="this.form.amountRange.value=this.value" step="1" type="number" value="0" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label class="before_slider" for="nThal1" style="opacity: 0;">
+                                Thalium Test: (0=normal or fixed defect, 1=reversible defect)</label></td>
+                                <td class="input_slider">
+                                    <form class="slider_input">
+                                        <input class="hd-slider-width" id="nThal1" max="1" min="0" name="amountRange" oninput="this.form.amountInput.value=this.value" step="1" type="range" value="0" style="opacity: 0;" disabled="disabled" />
+                                        <input class="hd-number-width" id="nThal2" max="1" min="0" name="amountInput" oninput="this.form.amountRange.value=this.value" step="1" type="number" value="0" style="opacity: 0;" disabled="disabled" />
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="input_slider" style="opacity: 0;">
+                                    <input class="btn btn-primary" onclick="updateOne(val01,-1)" type="button" value="Reset All Sliders" style="opacity: 0;" disabled="disabled" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="child2">
+
+
+
+                        <!-- <script>
+                            const width = 100;
+                            const height = 400;
+
+                            const holder = d3.select(".child2")
+                                .append("svg")
+                                .attr("width", width)
+                                .attr("height", height);
+
+                            // draw a rectangle
+                            const y0 = 20;
+                            const height0 = 380;
+                            holder.append("rect")
+                                .attr("x", 5)
+                                .attr("y", y0 + height0)
+                                .style("fill", "rgb(0,255,0)")
+                                .attr("height", 0)
+                                .attr("width", 90);
+
+                            // draw a container rectangle
+                            holder.append("rect")
+                                .attr("x", 5)
+                                .attr("y", y0)
+                                .style("fill", "none")
+                                .style("stroke", "lightblue")
+                                .style("stroke-width", 4)
+                                .attr("height", height0)
+                                .attr("width", 90);
+
+                            // add text inside rectangle
+                            holder.append("text")
+                                .text("0.00%")
+                                .attr("x", 12)
+                                .attr("y", y0 + height0 - 10)
+                                .attr("fill", "black")
+                                .attr("font-family", "Verdana")
+                                .attr("font-size", "20");
+
+                            // initialize
+                            // let val01 = document.getElementById("nSex1").value;
+                            // let val02 = document.getElementById("nRestbp1").value;
+                            // let val03 = document.getElementById("nThalach1").value;
+                            // let val04 = document.getElementById("nCa1").value;
+                            // let val05 = document.getElementById("nCp1").value;
+                            // let val06 = document.getElementById("nSlope1").value;
+                            // let val07 = document.getElementById("nThal1").value;
+                            // updateOne(val01, 0);
+
+
+                            let val01 = document.getElementById("nSex1").value;
+                            let val02 = document.getElementById("nRestbp1").value;
+                            let val03 = document.getElementById("nThalach1").value;
+                            let val04 = document.getElementById("nCa1").value;
+                            let val05 = document.getElementById("nCp1").value;
+                            let val06 = document.getElementById("nSlope1").value;
+                            let val07 = document.getElementById("nThal1").value;
+
+                            // Check for changes in the inputs and update output bar
+
+                            d3.select("#nSex1").on("input", function() {
+                                updateOne(+this.value, 1);
+                            });
+                            d3.select("#nSex2").on("input", function() {
+                                updateOne(+this.value, 1);
+                            });
+                            d3.select("#nRestbp1").on("input", function() {
+                                updateOne(+this.value, 2);
+                            });
+                            d3.select("#nRestbp2").on("input", function() {
+                                updateOne(+this.value, 2);
+                            });
+                            d3.select("#nThalach1").on("input", function() {
+                                updateOne(+this.value, 3);
+                            });
+                            d3.select("#nThalach2").on("input", function() {
+                                updateOne(+this.value, 3);
+                            });
+                            d3.select("#nCa1").on("input", function() {
+                                updateOne(+this.value, 4);
+                            });
+                            d3.select("#nCa2").on("input", function() {
+                                updateOne(+this.value, 4);
+                            });
+                            d3.select("#nCp1").on("input", function() {
+                                updateOne(+this.value, 5);
+                            });
+                            d3.select("#nCp2").on("input", function() {
+                                updateOne(+this.value, 5);
+                            });
+                            d3.select("#nSlope1").on("input", function() {
+                                updateOne(+this.value, 6);
+                            });
+                            d3.select("#nSlope2").on("input", function() {
+                                updateOne(+this.value, 6);
+                            });
+                            d3.select("#nThal1").on("input", function() {
+                                updateOne(+this.value, 7);
+                            });
+                            d3.select("#nThal2").on("input", function() {
+                                updateOne(+this.value, 7);
+                            });
+
+                            // Update the heart disease probability
+                            function updateOne(value, index) {
+
+                                if (index === 1) {
+                                    val01 = value;
+                                } else if (index === 2) {
+                                    val02 = value;
+                                } else if (index === 3) {
+                                    val03 = value;
+                                } else if (index === 4) {
+                                    val04 = value;
+                                } else if (index === 5) {
+                                    val05 = value;
+                                } else if (index === 6) {
+                                    val06 = value;
+                                } else if (index === 7) {
+                                    val07 = value;
+                                } else if (index === -1) {
+                                    // Set everything back to default state:
+                                    val01 = document.getElementById("nSex1").defaultValue;
+                                    document.getElementById("nSex1").value = val01;
+                                    document.getElementById("nSex2").value = val01;
+                                    val02 = document.getElementById("nRestbp1").defaultValue;
+                                    document.getElementById("nRestbp1").value = val02;
+                                    document.getElementById("nRestbp2").value = val02;
+                                    val03 = document.getElementById("nThalach1").defaultValue;
+                                    document.getElementById("nThalach1").value = val03;
+                                    document.getElementById("nThalach2").value = val03;
+                                    val04 = document.getElementById("nCa1").defaultValue;
+                                    document.getElementById("nCa1").value = val04;
+                                    document.getElementById("nCa2").value = val04;
+                                    val05 = document.getElementById("nCp1").defaultValue;
+                                    document.getElementById("nCp1").value = val05;
+                                    document.getElementById("nCp2").value = val05;
+                                    val06 = document.getElementById("nSlope1").defaultValue;
+                                    document.getElementById("nSlope1").value = val06;
+                                    document.getElementById("nSlope2").value = val06;
+                                    val07 = document.getElementById("nThal1").defaultValue;
+                                    document.getElementById("nThal1").value = val07;
+                                    document.getElementById("nThal2").value = val07;
+                                }
+
+                                // Standardize the continuous features:
+                                let srbp_val = (val02 - 131.7157) / 17.7478;
+                                let sthalach_val = (val03 - 149.3278) / 23.1211;
+                                let sca_val = (val04 - 0.6722) / 3.0;
+
+                                // Disentangle the categorical features:
+                                let cp_contr = 0.0;
+                                if (val05 === 1) {
+                                    cp_contr = -2.2318;
+                                } else if (val05 === 2) {
+                                    cp_contr = -1.2681;
+                                } else if (val05 === 3) {
+                                    cp_contr = -2.1124;
+                                }
+                                let slope_contr = 0.0;
+                                if (val06 === 1) {
+                                    slope_contr = -1.4726;
+                                }
+                                let thal_contr = 0.0;
+                                if (val07 === 1) {
+                                    thal_contr = 1.5009;
+                                }
+
+                                // Compute log-odds, then probability:
+                                let scprod = 1.4361 * val01 + 0.4415 * srbp_val - 0.4431 * sthalach_val + 3.7984 * sca_val + cp_contr + slope_contr + thal_contr;
+                                let drec = 1.0 / (1.0 + Math.exp(-scprod));
+                                let drecs = height0 * drec;
+                                drec *= 100;
+
+                                // Update plot:
+                                let rcolor = percentToRGB(drec);
+                                holder.select("rect")
+                                    .attr("y", y0 + height0 - drecs)
+                                    .attr("height", drecs)
+                                    .style("fill", rcolor);
+
+                                holder.select("text")
+                                    .text(function() {
+                                        return parseFloat(Math.round(drec * 100) / 100).toFixed(2) + "%";
+                                    });
+
+                            }
+
+                            function percentToRGB(percent) {
+                                if (percent === 100) {
+                                    percent = 99
+                                }
+                                let r, g, b;
+
+                                if (percent < 50) {
+                                    // green to yellow
+                                    r = Math.floor(255 * (percent / 50));
+                                    g = 255;
+
+                                } else {
+                                    // yellow to red
+                                    r = 255;
+                                    g = Math.floor(255 * ((50 - percent % 50) / 50));
+                                }
+                                b = 0;
+
+                                return "rgb(" + r + "," + g + "," + b + ")";
+                            }
+                        </script> -->
+                        <p style="font-size: 65px;margin-right: 200px;">❤️</p>
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!-- <p>sbhsjcjs</p> -->
+
+
+
+        <br />
+
+        <!-- start Quiz button -->
+        <div class="start_btn"><button>Predict Now</button></div>
+
+        <!-- Info Box -->
+        <div class="info_box">
+            <div class="info-title"><span>Begin to Predict</span></div>
+            <div class="info-list">
+                <div class="info">Click the Continue button to begin<span></span> </div>
+                <div class="info">Read the questions and click on the appropriate option</div>
+                <div class="info">and predict chance of having a
+                    <span style="color: red;"><b>Heart Disease</b></span></div>
+                <!--<div class="info">4. You can't exit from the Quiz while you're playing.</div>
+                <div class="info">5. You'll get points on the basis of your correct answers.</div> -->
+            </div>
+            <div class="buttons">
+                <button class="quit">Exit</button>
+                <button class="restart">Continue</button>
+            </div>
+        </div>
+
+        <!-- Quiz Box -->
+        <div class="quiz_box" id="quiz_boxid">
+            <header>
+                <div class="title">
+                    <div class="que_text" style="color: white;"></div>
+                </div>
+                <br />
+
+                <div class="timer">
+                    <!-- <div class="time_left_txt">Time Left</div> -->
+                    <div class="timer_sec" id="timer_secid">🤔</div>
+                </div>
+                <div class="time_line"></div>
+
+            </header>
+            <section>
+                <!-- style="background-image: url(https://th.bing.com/th/id/OIP.Mw7x59oYoBbjuWaU4OuVMwHaE7?pid=ImgDet&rs=1);" -->
+                <!-- <div class="que_text"> -->
+                <!-- Here I've inserted question from JavaScript -->
+                <!-- </div> -->
+
+                <div class="option_list" id="option_listid">
+                    <!-- Here I've inserted options from JavaScript -->
+                </div>
+
+
+            </section>
+
+            <!-- footer of Quiz Box -->
+            <footer>
+                <div class="total_que">
+                </div>
+                <button class="next_btn">Next Que</button>
+            </footer>
+        </div>
+
+        <!-- Result Box -->
+        <div class="result_box">
+            <div class="icon">
+                <i class="fas fa-crown"></i>
+            </div>
+            <div class="complete_text">Predected</div>
+            <div class="score_text">
+                <!-- Here I've inserted Score Result from JavaScript -->
+            </div>
+            <div class="buttons">
+                <button class="restart">Predict Again</button>
+                <button class="quit">Exit</button>
+            </div>
+        </div>
+
+        <!-- Inside this JavaScript file I've inserted Questions and Options only -->
+        <!-- <script src="js/vendor/questions.js"></script> -->
+
+        <!-- Inside this JavaScript file I've coded all Quiz Codes -->
+        <!-- <script src="js/scriptss.js"></script> -->
+        <br />
+
+    </section>
+    <!-- END section -->
+
+
+    <footer>
+        <div class="content">
+            <div class="top">
+                <div class="logo-details">
+                    <span class="logo_name" style="font-size: 40px;">HeartBuddy</span>
+                    <img src="images/favicon-32x32.png" width="60px"> </div>
+
+            </div>
+            <div class="link-boxes">
+                <ul class="box">
+                    <li class="link_name">Links</li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">info</a></li>
+                    <li>
+                        <a href="mainl.html">Predict Now</a>
+                    </li>
+                </ul>
+                <!-- <ul class="box">
+                    <li class="link_name">Services</li>
+                    <li><a href="#">App design</a></li>
+                    <li><a href="#">Web design</a></li>
+                    <li><a href="#">Logo design</a></li>
+                    <li><a href="#">Banner design</a></li>
+                </ul> -->
+                <!-- <ul class="box">
+                    <li class="link_name">Account</li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">My account</a></li>
+                    <li><a href="#">Prefrences</a></li>
+                    <li><a href="#">Purchase</a></li>
+                </ul> -->
+                <ul class="box">
+                    <li class="link_name">Team</li>
+                    <li>
+                        <a href="#">PRAYAG BHOSALE</a>
+                    </li>
+                    <li>
+                        <a href="#">SAMPADA BHONGALE</a>
+                    </li>
+                    <li><a href="#">ADITYA BABAR</a></li>
+                    <li>
+                        <a href="#">MRUNAL KSHIRSAGAR</a>
+                    </li>
+                    <li>
+                        <a href="#">VAIBHAVI PAWAR</a>
+                    </li>
+                </ul>
+                <ul class="box input-box">
+                    <li class="link_name">Contact Us</li>
+                    <li><input type="text" placeholder="Enter your email"></li>
+                    <li><input type="text" placeholder="Enter your message" height="100px"></li>
+                    <li><input type="button" value="Send"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom-details">
+            <div class="bottom_text">
+                <span class="copyright_text">Copyright © 2021 <a href="#">HeartBuddy</a>All rights reserved</span>
+                <span class="policy_terms">
+            <!-- <a href="#">Privacy policy</a>
+            <a href="#">Terms & condition</a> -->
+          </span>
+            </div>
+        </div>
+    </footer>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            width: 100%;
+            background: #EEECEB;
+        }
+        
+        footer {
+            /* position: fixed; */
+            background: #F27D42;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 100px;
+            height: 1px;
+            width: 100%;
+            background: #AFAFB6;
+        }
+        
+        footer .content {
+            max-width: 1250px;
+            margin: auto;
+            padding: 30px 40px 40px 40px;
+        }
+        
+        footer .content .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        
+        .content .top .logo-details {
+            color: #fff;
+            font-size: 30px;
+        }
+        
+        .content .top .media-icons {
+            display: flex;
+        }
+        
+        .content .top .media-icons a {
+            height: 40px;
+            width: 40px;
+            margin: 0 8px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-size: 17px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+        
+        .top .media-icons a:nth-child(1) {
+            background: #4267B2;
+        }
+        
+        .top .media-icons a:nth-child(1):hover {
+            color: #4267B2;
+            background: #fff;
+        }
+        
+        .top .media-icons a:nth-child(2) {
+            background: #1DA1F2;
+        }
+        
+        .top .media-icons a:nth-child(2):hover {
+            color: #1DA1F2;
+            background: #fff;
+        }
+        
+        .top .media-icons a:nth-child(3) {
+            background: #E1306C;
+        }
+        
+        .top .media-icons a:nth-child(3):hover {
+            color: #E1306C;
+            background: #fff;
+        }
+        
+        .top .media-icons a:nth-child(4) {
+            background: #0077B5;
+        }
+        
+        .top .media-icons a:nth-child(4):hover {
+            color: #0077B5;
+            background: #fff;
+        }
+        
+        .top .media-icons a:nth-child(5) {
+            background: #FF0000;
+        }
+        
+        .top .media-icons a:nth-child(5):hover {
+            color: #FF0000;
+            background: #fff;
+        }
+        
+        footer .content .link-boxes {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        footer .content .link-boxes .box {
+            width: calc(100% / 5 - 10px);
+        }
+        
+        .content .link-boxes .box .link_name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .link-boxes .box .link_name::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            height: 2px;
+            width: 35px;
+            background: #fff;
+        }
+        
+        .content .link-boxes .box li {
+            margin: 6px 0;
+            list-style: none;
+        }
+        
+        .content .link-boxes .box li a {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 400;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.4s ease
+        }
+        
+        .content .link-boxes .box li a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .content .link-boxes .input-box {
+            margin-right: 55px;
+        }
+        
+        .link-boxes .input-box input {
+            height: 40px;
+            width: calc(100% + 55px);
+            outline: none;
+            border: 2px solid #AFAFB6;
+            background: #140B5C;
+            border-radius: 4px;
+            padding: 0 15px;
+            font-size: 15px;
+            color: #fff;
+            margin-top: 5px;
+        }
+        
+        .link-boxes .input-box input::placeholder {
+            color: #AFAFB6;
+            font-size: 16px;
+        }
+        
+        .link-boxes .input-box input[type="button"] {
+            background: #fff;
+            color: #140B5C;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 4px 0;
+            opacity: 0.8;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .input-box input[type="button"]:hover {
+            opacity: 1;
+        }
+        
+        footer .bottom-details {
+            width: 100%;
+            background: #0F0844;
+        }
+        
+        footer .bottom-details .bottom_text {
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .bottom-details .bottom_text span,
+        .bottom-details .bottom_text a {
+            font-size: 14px;
+            font-weight: 300;
+            color: #fff;
+            opacity: 0.8;
+            text-decoration: none;
+        }
+        
+        .bottom-details .bottom_text a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .bottom-details .bottom_text a {
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 900px) {
+            footer .content .link-boxes {
+                flex-wrap: wrap;
+            }
+            footer .content .link-boxes .input-box {
+                width: 40%;
+                margin-top: 10px;
+            }
+        }
+        
+        @media (max-width: 700px) {
+            footer {
+                position: relative;
+            }
+            .content .top .logo-details {
+                font-size: 26px;
+            }
+            .content .top .media-icons a {
+                height: 35px;
+                width: 35px;
+                font-size: 14px;
+                line-height: 35px;
+            }
+            footer .content .link-boxes .box {
+                width: calc(100% / 3 - 10px);
+            }
+            footer .content .link-boxes .input-box {
+                width: 60%;
+            }
+            .bottom-details .bottom_text span,
+            .bottom-details .bottom_text a {
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            footer::before {
+                top: 145px;
+            }
+            footer .content .top {
+                flex-direction: column;
+            }
+            .content .top .media-icons {
+                margin-top: 16px;
+            }
+            footer .content .link-boxes .box {
+                width: calc(100% / 2 - 10px);
+            }
+            footer .content .link-boxes .input-box {
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <script src="js/scripts.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- Inside this JavaScript file I've inserted Questions and Options only -->
+    <script src="js/questions.js"></script>
+
+    <!-- Inside this JavaScript file I've coded all Quiz Codes -->
+    <script src="js/scriptss.js"></script>
+</body>
+
+</html>
